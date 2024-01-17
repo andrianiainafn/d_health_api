@@ -1,5 +1,8 @@
 package health.d_health_api.enums;
 
+import lombok.Getter;
+
+@Getter
 public enum BloodType {
     A_POSITIVE("A+"),
     A_NEGATIVE("A-"),
@@ -16,7 +19,4 @@ public enum BloodType {
         this.value = value;
     }
 
-    public String getValue() {
-        return value;
-    }
 }
