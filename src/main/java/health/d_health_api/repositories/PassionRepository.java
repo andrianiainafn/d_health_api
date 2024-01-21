@@ -6,6 +6,6 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
 
 @RepositoryRestResource
-public interface UserRepository extends JpaRepository<Passion,Long> {
+public interface PassionRepository extends JpaRepository<Passion,Long> {
 
 }
