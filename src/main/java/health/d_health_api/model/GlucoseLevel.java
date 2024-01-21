@@ -20,7 +20,7 @@ public class GlucoseLevel {
 
     @Id
     @GeneratedValue
-    private Long glucoseLevelId;
+    private String glucoseLevelId;
     private double level;
 
     @ManyToOne

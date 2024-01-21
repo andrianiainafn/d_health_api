@@ -22,7 +22,7 @@ public class Passion {
 
     @Id
     @GeneratedValue
-    private Long passionId;
+    private String passionId;
     private String username;
     private String email;
     private String password;

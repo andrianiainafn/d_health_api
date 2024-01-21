@@ -20,7 +20,7 @@ public class HartRate {
 
     @Id
     @GeneratedValue
-    private Long hartRateId;
+    private String hartRateId;
     private int rate;
 
     @ManyToOne
