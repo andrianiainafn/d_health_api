@@ -1,5 +1,11 @@
 package health.d_health_api.config;
 
-public class RsaKeysConfig {
+import org.springframework.boot.context.properties.ConfigurationProperties;
+
+import java.security.interfaces.RSAPrivateKey;
+import java.security.interfaces.RSAPublicKey;
+
+@ConfigurationProperties(prefix = "rsa")
+public record RsaKeysConfig (RSAPublicKey rsaPublicKey, RSAPrivateKey rsaPrivateKey){
 
 }
