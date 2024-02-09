@@ -5,13 +5,17 @@ import health.d_health_api.map.TokenDetailsMap;
 import health.d_health_api.model.Passion;
 import health.d_health_api.repositories.PassionRepository;
 import health.d_health_api.services.AuthService;
+import jakarta.transaction.Transactional;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.jwt.Jwt;
+import org.springframework.stereotype.Service;
 
 import java.time.Instant;
 import java.util.Date;
 import java.util.UUID;
 
+@Service
+@Transactional
 public class AuthServiceImpl implements AuthService {
 
     private final PassionRepository passionRepository;
