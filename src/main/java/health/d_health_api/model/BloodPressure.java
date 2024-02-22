@@ -21,7 +21,7 @@ public class BloodPressure {
 
     @Id
     @GeneratedValue
-    private Long bloodPressureId;
+    private String bloodPressureId;
     private int systolic;
     private int diastolic;
 
