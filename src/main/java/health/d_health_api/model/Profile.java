@@ -19,7 +19,7 @@ public class Profile {
 
     @Id
     @GeneratedValue
-    private Long profile_id;
+    private String profile_id;
     private BloodType bloodType;
     private String diseasesChronic;
     private String allergy;
