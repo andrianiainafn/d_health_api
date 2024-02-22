@@ -7,5 +7,5 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
 @RepositoryRestResource
 public interface PassionRepository extends JpaRepository<Passion,Long> {
-
+    Passion findPassionByEmail(String email);
 }
