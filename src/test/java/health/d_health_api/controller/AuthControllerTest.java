@@ -21,15 +21,11 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 class AuthControllerTest {
     @Mock
     private ObjectMapper objectMapper;
-
     @Mock
     private AuthServiceImpl authService;
-
     @InjectMocks
     private AuthController authController;
-
     private MockMvc mockMvc;
-
     private CreatePassionRequestDto createPassionRequestDto;
 
     @BeforeEach
