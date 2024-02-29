@@ -46,7 +46,13 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     public String generateRefreshToken(String scope, Instant instant) {
-        return "refreshToken";
+        JwtClaimsSet jwtClaimsSet = JwtClaimsSet.builder()
+                .issuedAt(instant)
+                .issuer("health-security")
+                .expiresAt(instant.plus(15  , ChronoUnit.DAYS))
+                .claim("scope",scope)
+                .build();
+        return jwtEncoder.encode(JwtEncoderParameters.from(jwtClaimsSet)).getTokenValue();
     }
 
     @Override
@@ -78,6 +84,7 @@ public class AuthServiceImpl implements AuthService {
                 .token(this.generateToken("","",Instant.now(),true,""))
                 .email(createPassionRequest.getEmail())
                 .username(createPassionRequest.getUsername())
+                .refreshToken(this.generateRefreshToken("",Instant.now()))
                 .build();
     }
 }
