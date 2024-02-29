@@ -7,25 +7,27 @@ import health.d_health_api.model.Passion;
 import health.d_health_api.repositories.PassionRepository;
 import health.d_health_api.services.AuthService;
 import jakarta.transaction.Transactional;
+import lombok.AllArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.oauth2.jwt.Jwt;
+import org.springframework.security.oauth2.jwt.*;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
+import java.time.temporal.ChronoUnit;
 import java.util.Date;
 import java.util.UUID;
 
 @Service
 @Transactional
+@AllArgsConstructor
 public class AuthServiceImpl implements AuthService {
 
-    private final PassionRepository passionRepository;
-    private final PasswordEncoder passwordEncoder;
+    JwtEncoder jwtEncoder;
+    JwtDecoder jwtDecoder;
+    PassionRepository passionRepository;
+    PasswordEncoder passwordEncoder;
 
-    public AuthServiceImpl(PassionRepository passionRepository, PasswordEncoder passwordEncoder) {
-        this.passionRepository = passionRepository;
-        this.passwordEncoder = passwordEncoder;
-    }
+
 
     @Override
     public Jwt decodeToken(String token) {
@@ -48,13 +50,16 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
-    public String generateToken(String subject, Instant instant, boolean withRefreshToken, String passionId) {
-        return "token";
-    }
-
-    @Override
     public String generateToken(String scope, String subject, Instant instant, boolean withRefreshToken, String passionId) {
-        return "token";
+        JwtClaimsSet jwtClaimsSet = JwtClaimsSet.builder()
+                .subject(subject)
+                .id(passionId)
+                .issuedAt(instant)
+                .issuer("health-security")
+                .expiresAt(instant.plus(withRefreshToken ? 10 : 15 , ChronoUnit.DAYS))
+                .claim("scope",scope)
+                .build();
+        return jwtEncoder.encode(JwtEncoderParameters.from(jwtClaimsSet)).getTokenValue();
     }
 
     @Override
