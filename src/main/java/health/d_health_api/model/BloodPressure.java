@@ -1,10 +1,7 @@
 package health.d_health_api.model;
 
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -19,8 +16,7 @@ import java.util.Date;
 @Entity
 public class BloodPressure {
 
-    @Id
-    @GeneratedValue
+    @Id @GeneratedValue(strategy = GenerationType.UUID)
     private String bloodPressureId;
     private int systolic;
     private int diastolic;
