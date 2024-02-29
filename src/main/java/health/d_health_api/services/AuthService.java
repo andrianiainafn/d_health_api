@@ -12,8 +12,6 @@ public interface AuthService {
     void generateScopeAndSubjectWithPasswordGrand(String email, String password, TokenDetailsMap tokenDetailsMap);
     void generateScopeAndSubjectWithRefreshTokenGrand(String refreshToken,String email, String password, TokenDetailsMap tokenDetailsMap);
     String generateRefreshToken(String scope, Instant instant);
-    String generateToken(String subject,Instant instant,boolean withRefreshToken , String passionId);
-
     String generateToken(String scope, String subject, Instant instant, boolean withRefreshToken, String passionId);
 
     CreatePassionResponseDto registerPassion(CreatePassionRequestDto createPassionRequest);
