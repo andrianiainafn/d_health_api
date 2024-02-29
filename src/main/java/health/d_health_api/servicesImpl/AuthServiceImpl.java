@@ -1,6 +1,7 @@
 package health.d_health_api.servicesImpl;
 
 import health.d_health_api.dto.requests.CreatePassionRequestDto;
+import health.d_health_api.dto.responses.CreatePassionResponseDto;
 import health.d_health_api.map.TokenDetailsMap;
 import health.d_health_api.model.Passion;
 import health.d_health_api.repositories.PassionRepository;
@@ -43,26 +44,35 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     public String generateRefreshToken(String scope, Instant instant) {
-        return null;
+        return "refreshToken";
     }
 
     @Override
-    public String generateToken(String scope, String subject, Instant instant, boolean withRefreshToken, Long userId) {
-        return null;
+    public String generateToken(String subject, Instant instant, boolean withRefreshToken, String passionId) {
+        return "token";
     }
 
     @Override
-    public CreatePassionRequestDto registerPassion(CreatePassionRequestDto createPassionRequest) {
+    public String generateToken(String scope, String subject, Instant instant, boolean withRefreshToken, String passionId) {
+        return "token";
+    }
+
+    @Override
+    public CreatePassionResponseDto registerPassion(CreatePassionRequestDto createPassionRequest) {
         Passion passion = Passion.builder()
                 .passionId(UUID.randomUUID().toString())
                 .modifyAt(new Date())
                 .createdAt(new Date())
-                .dateOfBirth(new Date())
+                .dateOfBirth(createPassionRequest.getDateOfBirth())
                 .username(createPassionRequest.getUsername())
                 .email(createPassionRequest.getEmail())
                 .password(passwordEncoder.encode(createPassionRequest.getPassword()))
                 .build();
-        Passion savePassion = passionRepository.save(passion);
-        return CreatePassionRequestDto.fromPassion(savePassion);
+        passionRepository.save(passion);
+        return CreatePassionResponseDto.builder()
+                .token(this.generateToken("","",Instant.now(),true,""))
+                .email(createPassionRequest.getEmail())
+                .username(createPassionRequest.getUsername())
+                .build();
     }
 }
