@@ -7,6 +7,7 @@ import com.nimbusds.jose.jwk.RSAKey;
 import com.nimbusds.jose.jwk.source.ImmutableJWKSet;
 import com.nimbusds.jose.jwk.source.JWKSource;
 import com.nimbusds.jose.proc.SecurityContext;
+import health.d_health_api.serviceImpls.UserDetailServiceImpl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -43,13 +44,12 @@ public class SecurityConfig {
     }
 
     @Bean
-    public AuthenticationManager authenticationManager(UserDetailsService userDetailsService){
-        var  authProvider = new DaoAuthenticationProvider();
+    public AuthenticationManager authenticationManager(UserDetailServiceImpl userDetailServiceImpl) {
+        var authProvider = new DaoAuthenticationProvider();
         authProvider.setPasswordEncoder(passwordEncoder);
-        authProvider.setUserDetailsService(userDetailsService);
+        authProvider.setUserDetailsService(userDetailServiceImpl);
         return new ProviderManager(authProvider);
     }
-
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         httpSecurity
@@ -63,7 +63,7 @@ public class SecurityConfig {
     }
 
     @Bean
-    JwtEncoder jsonEncoder(){
+    JwtEncoder jwtEncoder(){
         JWK jwk = new RSAKey.Builder(rsaKeysConfig.rsaPublicKey()).privateKey(rsaKeysConfig.rsaPrivateKey()).build();
         JWKSource<SecurityContext> jwkSource = new ImmutableJWKSet<>(new JWKSet(jwk));
         return  new NimbusJwtEncoder(jwkSource);
