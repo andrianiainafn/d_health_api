@@ -1,13 +1,14 @@
-package health.d_health_api.servicesImpl;
+package health.d_health_api.serviceImpls;
 
+import health.d_health_api.dto.requests.CreateBloodPressureRequest;
 import health.d_health_api.dto.requests.CreatePassionRequestDto;
 import health.d_health_api.dto.requests.LoginPassionDto;
 import health.d_health_api.dto.responses.AuthPassionResponseDto;
 import health.d_health_api.exceptions.RessourceNotFoundException;
-import health.d_health_api.map.TokenDetailsMap;
 import health.d_health_api.model.Passion;
 import health.d_health_api.repositories.PassionRepository;
 import health.d_health_api.services.AuthService;
+import health.d_health_api.services.BloodPressureService;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -20,7 +21,6 @@ import org.springframework.stereotype.Service;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.Date;
-import java.util.Objects;
 import java.util.UUID;
 
 @Service
@@ -114,5 +114,12 @@ public class AuthServiceImpl implements AuthService {
                 .token(token)
                 .refreshToken(this.generateRefreshToken("",Instant.now(),subject))
                 .build();
+    }
+
+    public static class BloodPressureServiceImpl implements BloodPressureService {
+        @Override
+        public void createBloodPressure(CreateBloodPressureRequest bloodPressureRequest, String token) {
+
+        }
     }
 }
