@@ -35,8 +35,9 @@ public class AuthServiceImpl implements AuthService {
     AuthenticationManager authenticationManager;
 
     @Override
-    public Jwt decodeToken(String token) {
-        return null;
+    public String decodeToken(String token) {
+        Jwt decodeJwt = jwtDecoder.decode(token);
+        return decodeJwt.getId();
     }
 
     @Override
