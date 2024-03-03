@@ -18,7 +18,7 @@ import java.util.List;
 public class Profile {
 
     @Id @GeneratedValue(strategy = GenerationType.UUID)
-    private String profile_id;
+    private String profileId;
     private BloodType bloodType;
     private String diseasesChronic;
     private String allergy;
