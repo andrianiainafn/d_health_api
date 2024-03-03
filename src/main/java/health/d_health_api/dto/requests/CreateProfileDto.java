@@ -6,6 +6,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @AllArgsConstructor
 @Data
 @NoArgsConstructor
@@ -17,4 +19,7 @@ public class CreateProfileDto {
     private String allergy;
     private String otherDetails;
     private String currentSymptoms;
+    private List<String> hartRates;
+    private List<String> bloodPressures;
+    private List<String> glucoseLevels;
 }
