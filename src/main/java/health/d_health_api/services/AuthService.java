@@ -10,11 +10,12 @@ import org.springframework.security.oauth2.jwt.Jwt;
 import java.time.Instant;
 
 public interface AuthService {
-    Jwt decodeToken(String token);
+    String decodeToken(String token);
     String generateRefreshToken(String scope, Instant instant,String subject);
     String generateToken(String scope, String subject, Instant instant, boolean withRefreshToken, String passionId);
 
     AuthPassionResponseDto registerPassion(CreatePassionRequestDto createPassionRequest);
     AuthPassionResponseDto loginPassion(LoginPassionDto loginPassionDto) throws RessourceNotFoundException;
+
     
 }
