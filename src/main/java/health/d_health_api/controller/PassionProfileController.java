@@ -11,10 +11,10 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/profile")
-public class ProfileController {
+public class PassionProfileController {
     private final ProfileService profileService;
 
-    public ProfileController(ProfileService profileService) {
+    public PassionProfileController(ProfileService profileService) {
         this.profileService = profileService;
     }
 
