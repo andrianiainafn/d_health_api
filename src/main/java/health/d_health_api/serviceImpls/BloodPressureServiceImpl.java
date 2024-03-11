@@ -21,13 +21,16 @@ public class BloodPressureServiceImpl implements BloodPressureService {
     }
 
     @Override
-    public void createBloodPressure(CreateBloodPressureRequest bloodPressureRequest, String profileId) {
+    public  BloodPressure createBloodPressure(CreateBloodPressureRequest bloodPressureRequest, String profileId) {
         Profile profile = profileRepository.findByProfileId(profileId);
-        BloodPressure.builder()
+        BloodPressure bloodPressure = BloodPressure.builder()
                 .profile(profile)
                 .diastolic(bloodPressureRequest.getDiastolic())
                 .systolic(bloodPressureRequest.getSystolic())
                 .measureDate(bloodPressureRequest.getMeasureDate())
                 .build();
+        BloodPressure bloodPressureSaved =bloodPressureRepository.save(bloodPressure);
+        profile.getBloodPressures().add(bloodPressureSaved);
+        return bloodPressureSaved;
     }
 }

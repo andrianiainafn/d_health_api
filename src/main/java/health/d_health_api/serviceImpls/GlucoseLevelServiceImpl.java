@@ -21,12 +21,15 @@ public class GlucoseLevelServiceImpl implements GlucoseLevelService {
     }
 
     @Override
-    public void createGlucoseLevel(CreateGlucoseLevelRequest glucoseLevelRequest, String profileId) {
+    public GlucoseLevel createGlucoseLevel(CreateGlucoseLevelRequest glucoseLevelRequest, String profileId) {
         Profile profile = profileRepository.findByProfileId(profileId);
-        GlucoseLevel.builder()
+        GlucoseLevel glucoseLevel = GlucoseLevel.builder()
                 .level(glucoseLevelRequest.getLevel())
                 .measureDate(glucoseLevelRequest.getMeasureDate())
                 .profile(profile)
                 .build();
+        GlucoseLevel glucoseLevelSaved = glucoseLevelRepository.save(glucoseLevel);
+        profile.getGlucoseLevels().add(glucoseLevelSaved);
+        return glucoseLevelSaved;
     }
 }

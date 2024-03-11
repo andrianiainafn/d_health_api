@@ -24,12 +24,15 @@ public class HartRateServiceImpl implements HartRateService {
     }
 
     @Override
-    public void createHartRate(CreateHartRateRequest hartRateRequest, String profileId) {
+    public HartRate createHartRate(CreateHartRateRequest hartRateRequest, String profileId) {
         Profile profile = profileRepository.findByProfileId(profileId);
-        HartRate.builder()
+        HartRate hartRate = HartRate.builder()
                 .rate(hartRateRequest.getRate())
                 .measureDate(hartRateRequest.getMeasureDate())
                 .profile(profile)
                 .build();
+        HartRate hartRateSaved = hartRateRepository.save(hartRate);
+        profile.getHartRates().add(hartRateSaved);
+        return hartRateSaved;
     }
 }

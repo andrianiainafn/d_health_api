@@ -115,11 +115,4 @@ public class AuthServiceImpl implements AuthService {
                 .refreshToken(this.generateRefreshToken("",Instant.now(),subject))
                 .build();
     }
-
-    public static class BloodPressureServiceImpl implements BloodPressureService {
-        @Override
-        public void createBloodPressure(CreateBloodPressureRequest bloodPressureRequest, String token) {
-
-        }
-    }
 }

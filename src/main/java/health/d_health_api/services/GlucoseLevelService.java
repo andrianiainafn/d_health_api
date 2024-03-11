@@ -1,7 +1,8 @@
 package health.d_health_api.services;
 
 import health.d_health_api.dto.requests.CreateGlucoseLevelRequest;
+import health.d_health_api.model.GlucoseLevel;
 
 public interface GlucoseLevelService {
-    public void createGlucoseLevel(CreateGlucoseLevelRequest glucoseLevelRequest, String profileId);
+    GlucoseLevel createGlucoseLevel(CreateGlucoseLevelRequest glucoseLevelRequest, String profileId);
 }
