@@ -1,5 +1,6 @@
 package health.d_health_api.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import health.d_health_api.enums.BloodType;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -29,6 +30,7 @@ public class Profile {
     private Passion passion;
     @OneToMany(mappedBy = "profile")
     private List<HartRate> hartRates;
+    @JsonIgnore
     @OneToMany(mappedBy = "profile")
     private List<BloodPressure> bloodPressures;
     @OneToMany(mappedBy = "profile")
