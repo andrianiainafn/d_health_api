@@ -1,6 +1,7 @@
 package health.d_health_api.serviceImpls;
 
 import health.d_health_api.dto.requests.CreateProfileDto;
+import health.d_health_api.dto.responses.ProfileDto;
 import health.d_health_api.model.*;
 import health.d_health_api.repositories.*;
 import health.d_health_api.services.AuthService;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -31,7 +33,7 @@ public class ProfileServiceImpl implements ProfileService {
     }
 
     @Override
-    public Profile createProfile(CreateProfileDto createProfileDto,String token) {
+    public void createProfile(CreateProfileDto createProfileDto,String token) {
         Passion passion = passionRepository.findByPassionId(authService.decodeToken(token));
         List<HartRate> hartRates = hartRateRepository.findAllByHartRateIdIsIn(createProfileDto.getHartRates());
         List<BloodPressure> bloodPressures = bloodPressureRepository.findAllByBloodPressureIdIn(createProfileDto.getBloodPressures());
@@ -43,16 +45,22 @@ public class ProfileServiceImpl implements ProfileService {
                 .bloodType(createProfileDto.getBloodType())
                 .allergy(createProfileDto.getAllergy())
                 .diseasesChronic(createProfileDto.getDiseasesChronic())
-                .otherDetails(createProfileDto.getOtherDetails())
-                .hartRates(hartRates)
-                .glucoseLevels(glucoseLevels)
                 .bloodPressures(bloodPressures)
+                .glucoseLevels(glucoseLevels)
+                .hartRates(hartRates)
+                .otherDetails(createProfileDto.getOtherDetails())
                 .build();
-        return  profileRepository.save(profile);
+        Profile save = profileRepository.save(profile);
+        glucoseLevels.forEach(glucoseLevel -> glucoseLevel.setProfile(save));
     }
 
     @Override
-    public void getProfileDetails() {
+    public Profile getProfileDetails() {
+        return  null;
+    }
 
+    @Override
+    public List<ProfileDto> getProfiles() {
+        return profileRepository.findAll().stream().map(ProfileDto::fromProfile).collect(Collectors.toList());
     }
 }
