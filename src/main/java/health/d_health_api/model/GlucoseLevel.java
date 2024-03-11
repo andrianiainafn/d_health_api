@@ -1,5 +1,6 @@
 package health.d_health_api.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -19,7 +20,8 @@ public class GlucoseLevel {
     private String glucoseLevelId;
     private double level;
 
-    @ManyToOne
+    @JsonIgnore
+    @ManyToOne(cascade = CascadeType.ALL)
     private Profile profile;
 
     private Date measureDate;

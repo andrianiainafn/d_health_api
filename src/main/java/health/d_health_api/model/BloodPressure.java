@@ -1,6 +1,7 @@
 package health.d_health_api.model;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -21,7 +22,8 @@ public class BloodPressure {
     private int systolic;
     private int diastolic;
 
-    @ManyToOne
+    @JsonIgnore
+    @ManyToOne(cascade = CascadeType.ALL)
     private Profile profile;
 
     private Date measureDate;
