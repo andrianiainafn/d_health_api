@@ -9,6 +9,8 @@ import health.d_health_api.services.GlucoseLevelService;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @Transactional
 public class GlucoseLevelServiceImpl implements GlucoseLevelService {
@@ -31,5 +33,10 @@ public class GlucoseLevelServiceImpl implements GlucoseLevelService {
         GlucoseLevel glucoseLevelSaved = glucoseLevelRepository.save(glucoseLevel);
         profile.getGlucoseLevels().add(glucoseLevelSaved);
         return glucoseLevelSaved;
+    }
+
+    @Override
+    public List<GlucoseLevel> getAllGlucoseLevels() {
+        return glucoseLevelRepository.findAll();
     }
 }
