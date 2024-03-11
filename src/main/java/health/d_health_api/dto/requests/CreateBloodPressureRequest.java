@@ -13,6 +13,5 @@ import java.util.Date;
 public class CreateBloodPressureRequest {
     private int systolic;
     private int diastolic;
-    private String profileId;
     private Date measureDate;
 }

@@ -12,6 +12,5 @@ import java.util.Date;
 @AllArgsConstructor
 public class CreateHartRateRequest {
     private int rate;
-    private String profileId;
     private Date measureDate;
 }

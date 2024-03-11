@@ -12,6 +12,5 @@ import java.util.Date;
 @AllArgsConstructor
 public class CreateGlucoseLevelRequest {
     private double level;
-    private String profileId;
     private Date measureDate;
 }
