@@ -10,7 +10,7 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/profile")
+@RequestMapping("api/profile")
 public class PassionProfileController {
     private final ProfileService profileService;
 
@@ -18,7 +18,7 @@ public class PassionProfileController {
         this.profileService = profileService;
     }
 
-    @PostMapping("create")
+    @PostMapping("/create")
     public ResponseEntity<Profile> createNewProfile(@RequestBody CreateProfileDto createProfileDto, @RequestHeader(name = HttpHeaders.AUTHORIZATION) String authorizationHeader){
         if (StringUtils.hasText(authorizationHeader) && authorizationHeader.startsWith("Bearer ")) {
             String token = authorizationHeader.substring(7);
