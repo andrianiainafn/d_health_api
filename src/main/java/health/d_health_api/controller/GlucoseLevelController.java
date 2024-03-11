@@ -7,6 +7,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/glucose-level")
 public class GlucoseLevelController {
@@ -15,9 +17,13 @@ public class GlucoseLevelController {
     public GlucoseLevelController(GlucoseLevelService glucoseLevelService) {
         this.glucoseLevelService = glucoseLevelService;
     }
-    @PostMapping ("{profileId}/create/")
-    public ResponseEntity<GlucoseLevel> createNewGlucoseLevel(@PathVariable String profileId, @RequestBody CreateGlucoseLevelRequest createGlucoseLevelRequest){
+    @PostMapping ("{profileId}")
+    public ResponseEntity<GlucoseLevel> createNewGlucoseLevel(@RequestBody CreateGlucoseLevelRequest createGlucoseLevelRequest, @PathVariable String profileId){
         GlucoseLevel glucoseLevel = glucoseLevelService.createGlucoseLevel(createGlucoseLevelRequest, profileId);
         return new ResponseEntity<>(glucoseLevel, HttpStatus.CREATED);
+    }
+    @GetMapping("")
+    public  ResponseEntity<List<GlucoseLevel>> getGlucoseLevels(){
+        return new ResponseEntity<>(glucoseLevelService.getAllGlucoseLevels(),HttpStatus.OK);
     }
 }

@@ -15,7 +15,7 @@ public class BloodPressureController {
     public BloodPressureController(BloodPressureService bloodPressureService) {
         this.bloodPressureService = bloodPressureService;
     }
-    @PostMapping("{profileId}/create/")
+    @PostMapping("/{profileId}")
     public ResponseEntity<BloodPressure> createNewBloodPressure(@PathVariable String profileId, @RequestBody CreateBloodPressureRequest createBloodPressureRequest){
         BloodPressure bloodPressure = bloodPressureService.createBloodPressure(createBloodPressureRequest,profileId);
         return  new ResponseEntity<>(bloodPressure, HttpStatus.CREATED);

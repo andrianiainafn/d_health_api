@@ -15,7 +15,7 @@ public class HartRateController {
     public HartRateController(HartRateService hartRateService) {
         this.hartRateService = hartRateService;
     }
-    @PostMapping ("{profileId}/create/")
+    @PostMapping ("{profileId}")
     public ResponseEntity<HartRate> createNewHartRate(@PathVariable String profileId, @RequestBody CreateHartRateRequest hartRateRequest){
         HartRate hartRate = hartRateService.createHartRate(hartRateRequest, profileId);
         return new ResponseEntity<>(hartRate, HttpStatus.CREATED);
