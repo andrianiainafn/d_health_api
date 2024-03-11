@@ -31,23 +31,24 @@ public class ProfileServiceImpl implements ProfileService {
     }
 
     @Override
-    public Profile createProfile(CreateProfileDto profile,String token) {
+    public Profile createProfile(CreateProfileDto createProfileDto,String token) {
         Passion passion = passionRepository.findByPassionId(authService.decodeToken(token));
-        List<HartRate> hartRates = hartRateRepository.findAllByHartRateIdIsIn(profile.getHartRates());
-        List<BloodPressure> bloodPressures = bloodPressureRepository.findAllByBloodPressureIdIn(profile.getBloodPressures());
-        List<GlucoseLevel> glucoseLevels = glucoseLevelRepository.findAllByGlucoseLevelIdIsIn(profile.getGlucoseLevels());
-        return Profile.builder()
-                .currentSymptoms(profile.getCurrentSymptoms())
+        List<HartRate> hartRates = hartRateRepository.findAllByHartRateIdIsIn(createProfileDto.getHartRates());
+        List<BloodPressure> bloodPressures = bloodPressureRepository.findAllByBloodPressureIdIn(createProfileDto.getBloodPressures());
+        List<GlucoseLevel> glucoseLevels = glucoseLevelRepository.findAllByGlucoseLevelIdIsIn(createProfileDto.getGlucoseLevels());
+        Profile profile = Profile.builder()
+                .currentSymptoms(createProfileDto.getCurrentSymptoms())
                 .createdAt(new Date())
                 .passion(passion)
-                .bloodType(profile.getBloodType())
-                .allergy(profile.getAllergy())
-                .diseasesChronic(profile.getDiseasesChronic())
-                .otherDetails(profile.getOtherDetails())
+                .bloodType(createProfileDto.getBloodType())
+                .allergy(createProfileDto.getAllergy())
+                .diseasesChronic(createProfileDto.getDiseasesChronic())
+                .otherDetails(createProfileDto.getOtherDetails())
                 .hartRates(hartRates)
                 .glucoseLevels(glucoseLevels)
                 .bloodPressures(bloodPressures)
                 .build();
+        return  profileRepository.save(profile);
     }
 
     @Override
